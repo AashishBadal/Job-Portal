@@ -3,3 +3,67 @@
 *{
     font-family: "Outfit", sans-serif;
 }
+
+@layer base{
+    html{
+        scroll-behavior:smooth;
+    }
+}
+
+::-webkit-scrollbar{
+display: none;
+}
+
+@layer components {
+  .rich-text {
+    @apply text-base text-gray-800 leading-relaxed space-y-4;
+  }
+
+  .rich-text h1 {
+    @apply text-4xl font-bold mt-6 mb-4;
+  }
+
+  .rich-text h2 {
+    @apply text-3xl font-semibold mt-6 mb-3;
+  }
+
+  .rich-text h3 {
+    @apply text-2xl font-semibold mt-5 mb-2;
+  }
+
+  .rich-text h4 {
+    @apply text-xl font-medium mt-4 mb-2;
+  }
+
+  .rich-text h5 {
+    @apply text-lg font-medium mt-3 mb-2;
+  }
+
+  .rich-text h6 {
+    @apply text-base font-medium mt-2 mb-1;
+  }
+
+  .rich-text p {
+    @apply text-base leading-7 mb-4;
+  }
+
+  .rich-text ul {
+    @apply list-disc list-inside mb-4;
+  }
+
+  .rich-text ol {
+    @apply list-decimal list-inside mb-4;
+  }
+
+  .rich-text li {
+    @apply mb-1;
+  }
+
+  .rich-text strong {
+    @apply font-semibold text-black;
+  }
+
+  .rich-text a {
+    @apply text-blue-600 underline hover:text-blue-800;
+  }
+}
