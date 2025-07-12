@@ -9,6 +9,7 @@ import ManageJobs from './pages/ManageJobs'
 import AddJob from './pages/AddJob'
 import ViewApplications from './pages/ViewApplications'
 import Dashboard from './pages/Dashboard'
+import 'quill/dist/quill.snow.css'
 
 const App = () => {
   const { showRecruiterLogin } = useContext(AppContext)
@@ -23,9 +24,9 @@ const App = () => {
         
         {/* Nested Route */}
         <Route path='/dashboard' element={<Dashboard />}>
-          <Route path='manage-jobs' element={<ManageJobs />} />
+          <Route path='manage-job' element={<ManageJobs />} />
           <Route path='add-job' element={<AddJob />} />
-          <Route path='view-application' element={<ViewApplications />} />
+          <Route path='view-applications' element={<ViewApplications />} />
         </Route>
       </Routes>
     </div>
