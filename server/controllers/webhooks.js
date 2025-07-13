@@ -63,3 +63,5 @@ const clerkWebhooks = async(req,res)=>{
         res.json({success:false,message:"webhooks error"})
     }
 }
+
+export default clerkWebhooks
