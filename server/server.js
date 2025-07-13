@@ -5,12 +5,15 @@ import cors from "cors";
 import 'dotenv/config'
 import connectDB from './config/db.js'
 import clerkWebhooks from './controllers/webhooks.js'
+import companyRoutes from './routes/companyRoutes.js'
+import connectCloudinary from "./config/cloudinary.js";
 
 //initialize express
 const app = express();
 
 //connect to datbase
 await connectDB()
+await connectCloudinary()
 
 //middlewares
 app.use(cors())
@@ -24,6 +27,8 @@ app.get("/debug-sentry", function mainHandler(req, res) {
 });
 
 app.post('/webhooks',clerkWebhooks)
+
+app.use('/api/company',companyRoutes)
 
 Sentry.setupExpressErrorHandler(app);
 
