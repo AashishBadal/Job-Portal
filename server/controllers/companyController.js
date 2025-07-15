@@ -80,7 +80,9 @@ export const loginCompany = async (req, res) => {
 
 //get company data
 
-export const getCompanyData = async (req, res) => {};
+export const getCompanyData = async (req, res) => {
+  
+};
 
 // post a new job
 
