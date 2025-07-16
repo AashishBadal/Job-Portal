@@ -29,7 +29,7 @@ const App = () => {
           {companyToken ?
           (
             <>
-              <Route path="manage-job" element={<ManageJobs />} />
+              <Route path="manage-jobs" element={<ManageJobs />} />
               <Route path="add-job" element={<AddJob />} />
               <Route path="view-applications" element={<ViewApplications />} />
             </>
