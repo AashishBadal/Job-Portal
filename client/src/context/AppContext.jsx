@@ -1,35 +1,83 @@
 import { createContext, useEffect, useState } from "react";
 import { jobsData } from "../assets/assets";
+import { toast } from "react-toastify";
+import axios from "axios";
 
-export const AppContext = createContext()
+export const AppContext = createContext();
 
-export const AppContextProvider =(props)=>{
+export const AppContextProvider = (props) => {
 
-    const [searchFilter,setSearchFilter]= useState({
-        title:'',
-        location:''
-    })
+    const backendUrl = import.meta.env.VITE_BACKEND_URL
+  const [searchFilter, setSearchFilter] = useState({
+    title: "",
+    location: "",
+  });
 
-    const [isSearched,setIsSearched]=useState(false)
+  const [isSearched, setIsSearched] = useState(false);
 
-    const [jobs,setJobs]=useState([])
+  const [jobs, setJobs] = useState([]);
 
-    const [showRecruiterLogin,setShowRecruiterLogin] = useState(false)
+  const [showRecruiterLogin, setShowRecruiterLogin] = useState(false);
 
-    // funtion to fetch job data
+  const [companyToken, setCompanyToken] = useState(null);
+  const [companyData, setCompanyData] = useState(null);
 
-    const fetchJobs = async()=>{
-        setJobs(jobsData)
+  // funtion to fetch job data
+
+  const fetchJobs = async () => {
+    setJobs(jobsData);
+  };
+
+  //function to fetch company data 
+
+  const fetchCompanyData = async () => {
+    try {
+      const {data} = await axios.get(backendUrl+'/api/company/company',{headers:{token:companyToken}})
+
+      if(data.success){
+        setCompanyData(data.company)
+        console.log(data)
+      }else{
+        toast.error(data.message)
+      }
+
+    } catch (error) {
+      toast.error(error.message)
     }
+  }
 
-    useEffect(()=>{
-        fetchJobs()
-    },[])
+  useEffect(() => {
+    fetchJobs();
 
-    const value = {
-    searchFilter,setSearchFilter,showRecruiterLogin,isSearched,setIsSearched,jobs,setJobs,setShowRecruiterLogin
+    const storedCompanyToken = localStorage.getItem('companyToken')
+    if(storedCompanyToken){
+      setCompanyToken(storedCompanyToken)
     }
-    return (<AppContext.Provider value={value}>
-        {props.children}
-    </AppContext.Provider>)
-}
+  }, []);
+
+  useEffect(()=>{
+    if(companyToken){
+      fetchCompanyData()
+    }
+  },[companyToken])
+
+  const value = {
+    searchFilter,
+    setSearchFilter,
+    showRecruiterLogin,
+    isSearched,
+    setIsSearched,
+    jobs,
+    setJobs,
+    setShowRecruiterLogin,
+    companyToken,
+    setCompanyToken,
+    companyData,
+    setCompanyData,
+    backendUrl
+
+  };
+  return (
+    <AppContext.Provider value={value}>{props.children}</AppContext.Provider>
+  );
+};

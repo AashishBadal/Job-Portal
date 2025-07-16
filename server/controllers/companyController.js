@@ -14,6 +14,8 @@ export const registerCompany = async (req, res) => {
 
   if (!name || !email || !password || !imageFile) {
     return res.json({ success: false, message: "Missing details" });
+    console.log("BODY:", req.body);
+    console.log("FILE:", req.file);
   }
 
   try {
@@ -59,7 +61,7 @@ export const loginCompany = async (req, res) => {
   try {
     const company = await Company.findOne({ email });
 
-    if (bcrypt.compare(password, company.password)) {
+    if (await bcrypt.compare(password, company.password)) {
       res.json({
         success: true,
         company: {
